@@ -45,7 +45,7 @@ def get_cat_alt(souped_cat):
 #################################
 def get_email(b_url, ext_url):
 	si_contact_url = b_url + ext_url
-	si_contact_req = requests.get(si_contact_url)
+	si_contact_req = requests.get(si_contact_url, headers={'User-Agent': 'SI_CLASS'})
 	si_contact_soup = BeautifulSoup(si_contact_req.text, 'html.parser')
 	contact_email = si_contact_soup.find(class_='field-type-email')
 	return contact_email.a.get_text()
@@ -119,13 +119,13 @@ umsi_emails = []
 for i in range(7):
 	if i == 0:
 		umsi_url = 'https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=4'
-		umsi_req = requests.get(umsi_url)
+		umsi_req = requests.get(umsi_url, headers={'User-Agent': 'SI_CLASS'})
 		umsi_soup = BeautifulSoup(umsi_req.text, 'html.parser')
 		get_UMSI_emails(umsi_soup, umsi_emails)
 
 	else:
 		umsi_url_next = 'https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=4&page={}'.format(i)
-		umsi_req_next = requests.get(umsi_url_next)
+		umsi_req_next = requests.get(umsi_url_next, headers={'User-Agent': 'SI_CLASS'})
 		umsi_soup_next = BeautifulSoup(umsi_req_next.text, 'html.parser')
 		get_UMSI_emails(umsi_soup_next, umsi_emails)
 
